@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import {PORT, mongoDBURL} from './config.js'
+import cors from 'cors';
 // import {Book} from './models/bookModel.js'
 
 import bookRoute from './routes/bookRoute.js'
@@ -10,6 +11,16 @@ const app = express();
 // middleware untuk parsing request body
 app.use(express.json());
 
+// middleware untuk CORS Policy
+// opsi 1: mengizinkan semua menggunakan notasi (*)
+app.use(cors());
+// opsi 2: kostomisasi origin
+// app.use(cors({
+//     origin: 'http://localhost:5173',
+//     methods: ['POST', 'GET', 'PUT', 'DELETE'],
+//     allowedHeaders: ['Content-Type']
+// }))
+
 // http request get /
 app.get('/', (request, response) => {
     console.log(request)
@@ -18,7 +29,7 @@ app.get('/', (request, response) => {
 
 
 // book route
-app.use('/books', bookRoute)
+app.use('/books', bookRoute);
 
 
 // 
